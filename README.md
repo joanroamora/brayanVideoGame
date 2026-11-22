@@ -2,20 +2,72 @@
 
 **BRAYAN 16 BIT — Mundo 1-1: Carrera 7ª (Bogotá)**
 
-Juego de plataformas y acción retro de 16 bits ambientado en la icónica Carrera Séptima de Bogotá, Colombia. Cuenta con cinemáticas estilo SNES, banda sonora y efectos de sonido generados con Web Audio API, soporte táctil (mobile) y teclado (PC), y selector de dificultad y lenguaje.
+Juego de plataformas y acción retro de 16 bits estilo SNES ambientado en la icónica Carrera Séptima de Bogotá, Colombia. Construido con **HTML5 Canvas + ES Modules nativos** (cero frameworks pesados, cero dependencias externas, arquitectura modular por *stages* replicable y escalable).
 
 ---
 
 ## 🎮 Características
 
-- **Estilo Pixel Art 16-Bit**: 19 sprites y fondos originales retro (Brayan, Ñero, Doña de la Chaza, Camarógrafo, Reportera, Majo, Activistas, Lobby, etc.).
-- **Standalone / Zero dependencias**: El juego funciona directamente abriendo el archivo HTML en cualquier navegador moderno sin necesidad de instalar librerías externas o servidores backend.
-- **Audio Sintetizado**: Música y efectos SFX generados proceduralmente vía Web Audio API nativo.
+- **Pixel Art 16-Bit Auténtico**: 20 sprites y fondos panorámicos originales en estilo SNES (Brayan, Ñero con cuchillo en embestida, Doña de la Chaza, Activistas, Majo, Reportera, Camarógrafo, Lobby y Carrera 7ª con Monserrate y Torre Colpatria).
+- **Arquitectura Modular por Stages**: Motor ligero basado en `StageManager` para agregar nuevos mundos (`world1_2`, `world1_3`, jefes, cinemáticas) sin duplicar lógica.
+- **Zero Dependencias / ES Modules Nativos**: Funciona directamente con `node server.js` en local o desplegado en GitHub Pages.
+- **Audio Sintetizado Chiptune**: Efectos SFX generados proceduralmente con Web Audio API.
 - **Modos de Dificultad**:
   - *Modo Ligero*: 5 corazones, chiclets de la chaza curan +2 ♥.
   - *Modo Pesado*: 3 corazones, enemigos más veloces, chiclets curan +1 ♥.
-- **Bilingüe**: Selector de idioma Español / English en tiempo real.
-- **Controles Responsivos**: Compatible con teclado para PC y controles táctiles en pantalla para móviles/tablets.
+- **Bilingüe (ES / EN)** y **Controles Responsivos** (teclado PC + controles táctiles móvil).
+
+---
+
+## 📁 Arquitectura del Proyecto
+
+```text
+brayanVideoGame/
+├── index.html                               # Shell HTML semántico limpio
+├── server.js                                # Servidor HTTP local sin dependencias (Node nativo)
+├── styles/
+│   └── main.css                             # Estilos 16-bit, layout responsivo, HUD y overlays
+├── src/
+│   ├── main.js                              # Bootstrap, registro de stages y game loop principal
+│   ├── config/
+│   │   └── i18n.js                          # Diccionario de textos ES/EN en vivo
+│   ├── core/
+│   │   ├── assets.js                        # Manifiesto de rutas de sprites/fondos y precarga
+│   │   ├── audio.js                         # Sintetizador 16-bit Web Audio API (SFX)
+│   │   ├── gameState.js                     # Estado global compartido (idioma, modo, stage activo)
+│   │   ├── input.js                         # Enrutador unificado de teclado PC + botones táctiles
+│   │   ├── renderer.js                      # Contexto Canvas 2D y helpers de dibujado pixel-art
+│   │   ├── stageManager.js                  # Gestor de ciclo de vida y transiciones entre stages
+│   │   └── ui.js                            # Referencias DOM, overlays (Pausa/Victoria/GameOver)
+│   └── stages/
+│       ├── titleStage.js                    # Stage 0: Pantalla de título y selector de dificultad
+│       ├── introCutsceneStage.js            # Stage 1: Cinemática del lobby (entrevista + tropiezo)
+│       ├── world1_1/                        # Stage 2: Mundo 1-1 — Carrera 7ª
+│       │   ├── levelData.js                 # Blueprint de nivel (plataformas, enemigos, ítems)
+│       │   ├── world1_1Stage.js             # Lógica de gameplay, físicas, IA y colisiones
+│       │   └── world1_1Renderer.js          # Renderizado parallax de Carrera 7ª, sprites y HUD
+│       └── world1_2/                        # Stage 3: Mundo 1-2 — TransMilenio Hora Pico (~52s)
+│           ├── levelData.js                 # Agenda de trayecto (52s), estaciones y dificultad
+│           ├── world1_2Stage.js             # Mecánicas: Celular, Cosquillero y Gas Verde
+│           └── world1_2Renderer.js          # Cabina 16-bit con ventanas transparentes + Bogotá en vivo
+└── assets/
+    ├── backgrounds/                         # Fondos 16-bit por escenario
+    │   ├── lobby.jpg
+    │   ├── world_1_1_septima.jpg
+    │   └── world_1_2_transmi_interior.png
+    └── sprites/                             # Sprites organizados por rol
+        ├── player/                          # brayan_idle/walk/trip/ko/phone/firm.png
+        ├── enemies/                         # nero_walk/lunge.png, cosquillero.png, act_*.png
+        └── npcs/                            # chaza_lady.png, passenger_gas.png, majo/reporter/cameraman.png
+```
+
+---
+
+## 🧩 Cómo Agregar un Nuevo Stage (ej. Mundo 1-2)
+
+1. Agrega el fondo en `assets/backgrounds/world_1_2_*.jpg` y nuevos sprites en `assets/sprites/...`, luego regístralos en `src/core/assets.js`.
+2. Crea la carpeta `src/stages/world1_2/` replicando la estructura de `world1_1/` (`levelData.js`, `world1_2Stage.js`, `world1_2Renderer.js`).
+3. Registra el stage en `src/main.js` con `stageManager.register('WORLD_1_2', world1_2Stage)`.
 
 ---
 
@@ -23,51 +75,18 @@ Juego de plataformas y acción retro de 16 bits ambientado en la icónica Carrer
 
 | Acción | Teclado (PC) | Táctil (Móvil) |
 |---|---|---|
-| **Moverse a la izquierda / derecha** | Flechas `←` / `→` o `A` / `D` | Botones `◀` / `▶` |
-| **Saltar** | `Espacio`, `↑` o `W` | Botón `▲` |
-| **Avanzar diálogos / Skip** | `Espacio` o `Enter` | Tocar la caja de diálogo o botón `SKIP >>` |
-| **Cambiar Idioma** | Tecla `L` | Botón de bandera en la barra superior |
-| **Silenciar / Activar Sonido** | Tecla `M` | Botón `SFX: ON/OFF` |
+| **Moverse** | `←` / `→` o `A` / `D` | Botones `◀` / `▶` |
+| **Saltar** | `Espacio`, `↑` o `W` | Botón `SALTAR` |
+| **Pausa** | `P` o `Esc` | Botón `❚❚ PAUSA` |
+| **Avanzar diálogos / Skip** | `Espacio` / `Enter` / `S` | Tocar diálogo / `SKIP >>` |
+| **Cambiar Idioma** | `L` | Botones `ES` / `EN` |
+| **Silenciar / Activar Sonido** | `M` | Botón `SFX: ON/OFF` |
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🚀 Cómo Ejecutar en Local
 
-```text
-brayanVideoGame/
-├── index.html                                    # Punto de entrada principal (ideal para GitHub Pages)
-├── BRAYAN_16BIT_BOGOTA_MUNDO_1-1_FINAL (1).html  # Versión original autónoma con assets integrados
-├── README.md                                     # Documentación del proyecto
-├── .gitignore                                    # Archivos ignorados por Git
-└── assets/                                       # Colección completa de los 19 sprites e imágenes (PNG/JPG)
-    ├── act_sign_up.png
-    ├── act_spray_high.png
-    ├── act_spray_low.png
-    ├── act_throw.png
-    ├── act_walk1.png
-    ├── act_walk2.png
-    ├── brayan_idle.png
-    ├── brayan_ko.png
-    ├── brayan_trip.png
-    ├── brayan_walk1.png
-    ├── brayan_walk2.png
-    ├── cameraman.png
-    ├── chaza_lady.png
-    ├── lobby.jpg
-    ├── majo_smile.png
-    ├── majo_talk.png
-    ├── nero_lunge.png
-    ├── nero_walk.png
-    └── reporter.png
+```bash
+node server.js
 ```
-
----
-
-## 🚀 Cómo Ejecutar
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/joanroamora/brayanVideoGame.git
-   ```
-2. Abre `index.html` en tu navegador favorito (Chrome, Edge, Firefox, Safari).
-3. ¡A esquivar huecos y ñeros en la Séptima!
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.

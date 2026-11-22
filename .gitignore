@@ -7,3 +7,6 @@ desktop.ini
 *.log
 .temp/
 .cache/
+
+# Local reference media (not part of production bundle)
+auxiliar/
