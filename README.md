@@ -1,21 +1,93 @@
 # brayanVideoGame 🕹️
 
-**BRAYAN 16 BIT — Mundo 1-1: Carrera 7ª (Bogotá)**
+**BRAYAN 16 BIT — Edición Bogotá (Capítulo 1 Completo: Mundos 1-1 a 1-4)**
 
-Juego de plataformas y acción retro de 16 bits ambientado en la icónica Carrera Séptima de Bogotá, Colombia. Cuenta con cinemáticas estilo SNES, banda sonora y efectos de sonido generados con Web Audio API, soporte táctil (mobile) y teclado (PC), y selector de dificultad y lenguaje.
+Juego de plataformas y acción retro de 16 bits estilo SNES ambientado en Bogotá, Colombia (Carrera 7ª, TransMilenio, Portal Sur y Bosa Piamonte). Construido con **HTML5 Canvas + ES Modules nativos** (cero frameworks pesados, cero dependencias externas, arquitectura modular por *stages* replicable y escalable).
 
 ---
 
 ## 🎮 Características
 
-- **Estilo Pixel Art 16-Bit**: 19 sprites y fondos originales retro (Brayan, Ñero, Doña de la Chaza, Camarógrafo, Reportera, Majo, Activistas, Lobby, etc.).
-- **Standalone / Zero dependencias**: El juego funciona directamente abriendo el archivo HTML en cualquier navegador moderno sin necesidad de instalar librerías externas o servidores backend.
-- **Audio Sintetizado**: Música y efectos SFX generados proceduralmente vía Web Audio API nativo.
+- **Pixel Art 16-Bit Auténtico**: 39 sprites y fondos originales en estilo SNES (Brayan con sus poses y maletín, Ñero con cuchillo, Doña de la Chaza, Activistas, Cosquillero, Jefe del Fruver, Colados, Cantante Callejero, Capuchos con Molotov, Helicóptero y Jefe Final de Piamonte, además de escenarios de Carrera 7ª, TransMilenio, Estación Calle 26, Portal Sur y Bosa Piamonte).
+- **Capítulo 1 Completo + Cinemáticas**:
+  - **Intro Lobby → Mundo 1-1**: Carrera 7ª hasta Plaza de Bolívar.
+  - **Mundo 1-2**: Trayecto de ~52 s en TransMilenio hora pico (Celular, Cosquillero, Gas Verde).
+  - **Cinemática Estación Calle 26 → Mundo 1-3**: Transbordo al articulado `G45` rumbo al Portal Sur.
+  - **Mundo 1-4**: Asedio en Bosa Piamonte (Helicóptero + Capuchos) y Jefe Final en la Cancha de Microfútbol.
+- **Arquitectura Modular por Stages**: Motor ligero basado en `StageManager` listo para agregar el Capítulo 2 (`world2_1`, jefes, cinemáticas) sin duplicar lógica.
+- **Zero Dependencias / ES Modules Nativos**: Funciona con `node server.js` en local o empaquetado a un único HTML autocontenido con `node scripts/build-standalone.js`.
+- **Audio Sintetizado Chiptune**: Efectos SFX generados proceduralmente con Web Audio API.
 - **Modos de Dificultad**:
   - *Modo Ligero*: 5 corazones, chiclets de la chaza curan +2 ♥.
   - *Modo Pesado*: 3 corazones, enemigos más veloces, chiclets curan +1 ♥.
-- **Bilingüe**: Selector de idioma Español / English en tiempo real.
-- **Controles Responsivos**: Compatible con teclado para PC y controles táctiles en pantalla para móviles/tablets.
+- **Bilingüe (ES / EN)** y **Controles Responsivos** (teclado PC + controles táctiles móvil).
+
+---
+
+## 📁 Arquitectura del Proyecto
+
+```text
+brayanVideoGame/
+├── index.html                               # Shell HTML semántico limpio
+├── server.js                                # Servidor HTTP local sin dependencias (Node nativo)
+├── styles/
+│   └── main.css                             # Estilos 16-bit, layout responsivo, HUD y overlays
+├── src/
+│   ├── main.js                              # Bootstrap, registro de stages y game loop principal
+│   ├── config/
+│   │   └── i18n.js                          # Diccionario de textos ES/EN en vivo
+│   ├── core/
+│   │   ├── assets.js                        # Manifiesto de rutas de sprites/fondos y precarga
+│   │   ├── audio.js                         # Sintetizador 16-bit Web Audio API (SFX)
+│   │   ├── gameState.js                     # Estado global compartido (idioma, modo, stage activo)
+│   │   ├── input.js                         # Enrutador unificado de teclado PC + botones táctiles
+│   │   ├── renderer.js                      # Contexto Canvas 2D y helpers de dibujado pixel-art
+│   │   ├── stageManager.js                  # Gestor de ciclo de vida y transiciones entre stages
+│   │   └── ui.js                            # Referencias DOM, overlays (Pausa/Victoria/GameOver)
+│   └── stages/
+│       ├── titleStage.js                    # Stage 0: Pantalla de título y selector de dificultad
+│       ├── introCutsceneStage.js            # Stage 1: Cinemática del lobby (entrevista + tropiezo)
+│       ├── world1_1/                        # Stage 2: Mundo 1-1 — Carrera 7ª
+│       │   ├── levelData.js                 # Blueprint de nivel (plataformas, enemigos, ítems)
+│       │   ├── world1_1Stage.js             # Lógica de gameplay, físicas, IA y colisiones
+│       │   └── world1_1Renderer.js          # Renderizado parallax de Carrera 7ª, sprites y HUD
+│       ├── world1_2/                        # Stage 3: Mundo 1-2 — TransMilenio Hora Pico (~52s)
+│       │   ├── levelData.js                 # Agenda de trayecto (52s), estaciones y dificultad
+│       │   ├── world1_2Stage.js             # Mecánicas: Celular, Cosquillero y Gas Verde
+│       │   └── world1_2Renderer.js          # Cabina 16-bit con ventanas transparentes + Bogotá en vivo
+│       ├── cutscene1_2To1_3Stage.js         # Cinemática: Transbordo en Estación Calle 26 (bus G45 a Portal Sur)
+│       ├── world1_3/                        # Stage 4: Mundo 1-3 — Portal Sur (8000px vertical)
+│       │   ├── levelData.js                 # Plataformas verticales, torniquetes, Jefe del Fruver, Colados y Cantantes
+│       │   ├── world1_3Stage.js             # IA de latigazos, parkour de colados y curación musical
+│       │   └── world1_3Renderer.js          # Parallax Portal Sur, buses rojos/verdes dinámicos y HUD
+│       └── world1_4/                        # Stage 5: Mundo 1-4 — Asedio en Piamonte + Jefe Final
+│           ├── levelData.js                 # Avenida Bosa Piamonte (refugios, bloques destructibles, capuchos)
+│           ├── world1_4Stage.js             # Fase 1 (Helicóptero + Molotovs) y Fase 2 (Boss Arena Cancha)
+│           └── world1_4Renderer.js          # Parallax Bosa Piamonte, Cancha microfútbol, barra HP Jefe y maletín
+├── scripts/
+│   └── build-standalone.js                  # Empaquetador opcional a 1 único HTML autocontenido (Base64)
+└── assets/
+    ├── backgrounds/                         # Fondos 16-bit por escenario
+    │   ├── lobby.jpg
+    │   ├── world_1_1_septima.jpg
+    │   ├── world_1_2_transmi_interior.png
+    │   ├── cutscene_estacion_calle26.jpg
+    │   ├── world_1_3_portal_sur.jpg
+    │   ├── world_1_4_bosa_piamonte.jpg
+    │   └── world_1_4_cancha.jpg
+    └── sprites/                             # Sprites organizados por rol
+        ├── player/                          # brayan_idle/walk/trip/ko/phone/firm/briefcase.png
+        ├── enemies/                         # nero_*, cosquillero, fruver_*, colado_*, capucho_molotov, helicopter_boss, boss_francia
+        └── npcs/                            # chaza_lady, passenger_gas, cantante_transmi, majo/reporter/cameraman
+```
+
+---
+
+## 🧩 Cómo Agregar un Nuevo Stage (ej. Mundo 2-1)
+
+1. Agrega el fondo en `assets/backgrounds/world_2_1_*.jpg` y nuevos sprites en `assets/sprites/...`, luego regístralos en `src/core/assets.js`.
+2. Crea la carpeta `src/stages/world2_1/` replicando la estructura de `world1_4/` (`levelData.js`, `world2_1Stage.js`, `world2_1Renderer.js`).
+3. Registra el stage en `src/main.js` con `stageManager.register('WORLD_2_1', world2_1Stage)` y añádelo a `scripts/build-standalone.js`.
 
 ---
 
@@ -23,51 +95,20 @@ Juego de plataformas y acción retro de 16 bits ambientado en la icónica Carrer
 
 | Acción | Teclado (PC) | Táctil (Móvil) |
 |---|---|---|
-| **Moverse a la izquierda / derecha** | Flechas `←` / `→` o `A` / `D` | Botones `◀` / `▶` |
-| **Saltar** | `Espacio`, `↑` o `W` | Botón `▲` |
-| **Avanzar diálogos / Skip** | `Espacio` o `Enter` | Tocar la caja de diálogo o botón `SKIP >>` |
-| **Cambiar Idioma** | Tecla `L` | Botón de bandera en la barra superior |
-| **Silenciar / Activar Sonido** | Tecla `M` | Botón `SFX: ON/OFF` |
+| **Moverse / Esquivar (1-2)** | `←` / `→` o `A` / `D` | Botones `◀` / `▶` |
+| **Saltar (1-1, 1-3, 1-4)** | `Espacio`, `↑` o `W` | Botón `SALTAR` |
+| **Actitud Firme / Ventana (1-2)** | `Espacio`/`E` · `W`/`F` | Botones `FIRME` / `VENTANA` |
+| **Agacharse / Maletín (1-4)** | `↓`/`S` · `J`/`Z`/`F`/`K`/`Shift` | Botones `CUBRIR` / `MALETÍN` |
+| **Pausa** | `P` o `Esc` | Botón `❚❚ PAUSA` |
+| **Avanzar diálogos / Skip** | `Espacio` / `Enter` / `S` | Tocar diálogo / `SKIP >>` |
+| **Cambiar Idioma** | `L` | Botones `ES` / `EN` |
+| **Silenciar / Activar Sonido** | `M` | Botón `SFX: ON/OFF` |
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🚀 Cómo Ejecutar en Local
 
-```text
-brayanVideoGame/
-├── index.html                                    # Punto de entrada principal (ideal para GitHub Pages)
-├── BRAYAN_16BIT_BOGOTA_MUNDO_1-1_FINAL (1).html  # Versión original autónoma con assets integrados
-├── README.md                                     # Documentación del proyecto
-├── .gitignore                                    # Archivos ignorados por Git
-└── assets/                                       # Colección completa de los 19 sprites e imágenes (PNG/JPG)
-    ├── act_sign_up.png
-    ├── act_spray_high.png
-    ├── act_spray_low.png
-    ├── act_throw.png
-    ├── act_walk1.png
-    ├── act_walk2.png
-    ├── brayan_idle.png
-    ├── brayan_ko.png
-    ├── brayan_trip.png
-    ├── brayan_walk1.png
-    ├── brayan_walk2.png
-    ├── cameraman.png
-    ├── chaza_lady.png
-    ├── lobby.jpg
-    ├── majo_smile.png
-    ├── majo_talk.png
-    ├── nero_lunge.png
-    ├── nero_walk.png
-    └── reporter.png
+```bash
+node server.js
 ```
-
----
-
-## 🚀 Cómo Ejecutar
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/joanroamora/brayanVideoGame.git
-   ```
-2. Abre `index.html` en tu navegador favorito (Chrome, Edge, Firefox, Safari).
-3. ¡A esquivar huecos y ñeros en la Séptima!
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
