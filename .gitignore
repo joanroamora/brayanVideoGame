@@ -8,5 +8,6 @@ desktop.ini
 .temp/
 .cache/
 
-# Local reference media (not part of production bundle)
+# Local reference media & generated standalone dist build
 auxiliar/
+dist/

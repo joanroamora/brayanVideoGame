@@ -1,16 +1,21 @@
 # brayanVideoGame 🕹️
 
-**BRAYAN 16 BIT — Mundo 1-1: Carrera 7ª (Bogotá)**
+**BRAYAN 16 BIT — Edición Bogotá (Capítulo 1 Completo: Mundos 1-1 a 1-4)**
 
-Juego de plataformas y acción retro de 16 bits estilo SNES ambientado en la icónica Carrera Séptima de Bogotá, Colombia. Construido con **HTML5 Canvas + ES Modules nativos** (cero frameworks pesados, cero dependencias externas, arquitectura modular por *stages* replicable y escalable).
+Juego de plataformas y acción retro de 16 bits estilo SNES ambientado en Bogotá, Colombia (Carrera 7ª, TransMilenio, Portal Sur y Bosa Piamonte). Construido con **HTML5 Canvas + ES Modules nativos** (cero frameworks pesados, cero dependencias externas, arquitectura modular por *stages* replicable y escalable).
 
 ---
 
 ## 🎮 Características
 
-- **Pixel Art 16-Bit Auténtico**: 20 sprites y fondos panorámicos originales en estilo SNES (Brayan, Ñero con cuchillo en embestida, Doña de la Chaza, Activistas, Majo, Reportera, Camarógrafo, Lobby y Carrera 7ª con Monserrate y Torre Colpatria).
-- **Arquitectura Modular por Stages**: Motor ligero basado en `StageManager` para agregar nuevos mundos (`world1_2`, `world1_3`, jefes, cinemáticas) sin duplicar lógica.
-- **Zero Dependencias / ES Modules Nativos**: Funciona directamente con `node server.js` en local o desplegado en GitHub Pages.
+- **Pixel Art 16-Bit Auténtico**: 39 sprites y fondos originales en estilo SNES (Brayan con sus poses y maletín, Ñero con cuchillo, Doña de la Chaza, Activistas, Cosquillero, Jefe del Fruver, Colados, Cantante Callejero, Capuchos con Molotov, Helicóptero y Jefe Final de Piamonte, además de escenarios de Carrera 7ª, TransMilenio, Estación Calle 26, Portal Sur y Bosa Piamonte).
+- **Capítulo 1 Completo + Cinemáticas**:
+  - **Intro Lobby → Mundo 1-1**: Carrera 7ª hasta Plaza de Bolívar.
+  - **Mundo 1-2**: Trayecto de ~52 s en TransMilenio hora pico (Celular, Cosquillero, Gas Verde).
+  - **Cinemática Estación Calle 26 → Mundo 1-3**: Transbordo al articulado `G45` rumbo al Portal Sur.
+  - **Mundo 1-4**: Asedio en Bosa Piamonte (Helicóptero + Capuchos) y Jefe Final en la Cancha de Microfútbol.
+- **Arquitectura Modular por Stages**: Motor ligero basado en `StageManager` listo para agregar el Capítulo 2 (`world2_1`, jefes, cinemáticas) sin duplicar lógica.
+- **Zero Dependencias / ES Modules Nativos**: Funciona con `node server.js` en local o empaquetado a un único HTML autocontenido con `node scripts/build-standalone.js`.
 - **Audio Sintetizado Chiptune**: Efectos SFX generados proceduralmente con Web Audio API.
 - **Modos de Dificultad**:
   - *Modo Ligero*: 5 corazones, chiclets de la chaza curan +2 ♥.
@@ -46,28 +51,43 @@ brayanVideoGame/
 │       │   ├── levelData.js                 # Blueprint de nivel (plataformas, enemigos, ítems)
 │       │   ├── world1_1Stage.js             # Lógica de gameplay, físicas, IA y colisiones
 │       │   └── world1_1Renderer.js          # Renderizado parallax de Carrera 7ª, sprites y HUD
-│       └── world1_2/                        # Stage 3: Mundo 1-2 — TransMilenio Hora Pico (~52s)
-│           ├── levelData.js                 # Agenda de trayecto (52s), estaciones y dificultad
-│           ├── world1_2Stage.js             # Mecánicas: Celular, Cosquillero y Gas Verde
-│           └── world1_2Renderer.js          # Cabina 16-bit con ventanas transparentes + Bogotá en vivo
+│       ├── world1_2/                        # Stage 3: Mundo 1-2 — TransMilenio Hora Pico (~52s)
+│       │   ├── levelData.js                 # Agenda de trayecto (52s), estaciones y dificultad
+│       │   ├── world1_2Stage.js             # Mecánicas: Celular, Cosquillero y Gas Verde
+│       │   └── world1_2Renderer.js          # Cabina 16-bit con ventanas transparentes + Bogotá en vivo
+│       ├── cutscene1_2To1_3Stage.js         # Cinemática: Transbordo en Estación Calle 26 (bus G45 a Portal Sur)
+│       ├── world1_3/                        # Stage 4: Mundo 1-3 — Portal Sur (8000px vertical)
+│       │   ├── levelData.js                 # Plataformas verticales, torniquetes, Jefe del Fruver, Colados y Cantantes
+│       │   ├── world1_3Stage.js             # IA de latigazos, parkour de colados y curación musical
+│       │   └── world1_3Renderer.js          # Parallax Portal Sur, buses rojos/verdes dinámicos y HUD
+│       └── world1_4/                        # Stage 5: Mundo 1-4 — Asedio en Piamonte + Jefe Final
+│           ├── levelData.js                 # Avenida Bosa Piamonte (refugios, bloques destructibles, capuchos)
+│           ├── world1_4Stage.js             # Fase 1 (Helicóptero + Molotovs) y Fase 2 (Boss Arena Cancha)
+│           └── world1_4Renderer.js          # Parallax Bosa Piamonte, Cancha microfútbol, barra HP Jefe y maletín
+├── scripts/
+│   └── build-standalone.js                  # Empaquetador opcional a 1 único HTML autocontenido (Base64)
 └── assets/
     ├── backgrounds/                         # Fondos 16-bit por escenario
     │   ├── lobby.jpg
     │   ├── world_1_1_septima.jpg
-    │   └── world_1_2_transmi_interior.png
+    │   ├── world_1_2_transmi_interior.png
+    │   ├── cutscene_estacion_calle26.jpg
+    │   ├── world_1_3_portal_sur.jpg
+    │   ├── world_1_4_bosa_piamonte.jpg
+    │   └── world_1_4_cancha.jpg
     └── sprites/                             # Sprites organizados por rol
-        ├── player/                          # brayan_idle/walk/trip/ko/phone/firm.png
-        ├── enemies/                         # nero_walk/lunge.png, cosquillero.png, act_*.png
-        └── npcs/                            # chaza_lady.png, passenger_gas.png, majo/reporter/cameraman.png
+        ├── player/                          # brayan_idle/walk/trip/ko/phone/firm/briefcase.png
+        ├── enemies/                         # nero_*, cosquillero, fruver_*, colado_*, capucho_molotov, helicopter_boss, boss_francia
+        └── npcs/                            # chaza_lady, passenger_gas, cantante_transmi, majo/reporter/cameraman
 ```
 
 ---
 
-## 🧩 Cómo Agregar un Nuevo Stage (ej. Mundo 1-2)
+## 🧩 Cómo Agregar un Nuevo Stage (ej. Mundo 2-1)
 
-1. Agrega el fondo en `assets/backgrounds/world_1_2_*.jpg` y nuevos sprites en `assets/sprites/...`, luego regístralos en `src/core/assets.js`.
-2. Crea la carpeta `src/stages/world1_2/` replicando la estructura de `world1_1/` (`levelData.js`, `world1_2Stage.js`, `world1_2Renderer.js`).
-3. Registra el stage en `src/main.js` con `stageManager.register('WORLD_1_2', world1_2Stage)`.
+1. Agrega el fondo en `assets/backgrounds/world_2_1_*.jpg` y nuevos sprites en `assets/sprites/...`, luego regístralos en `src/core/assets.js`.
+2. Crea la carpeta `src/stages/world2_1/` replicando la estructura de `world1_4/` (`levelData.js`, `world2_1Stage.js`, `world2_1Renderer.js`).
+3. Registra el stage en `src/main.js` con `stageManager.register('WORLD_2_1', world2_1Stage)` y añádelo a `scripts/build-standalone.js`.
 
 ---
 
@@ -75,8 +95,10 @@ brayanVideoGame/
 
 | Acción | Teclado (PC) | Táctil (Móvil) |
 |---|---|---|
-| **Moverse** | `←` / `→` o `A` / `D` | Botones `◀` / `▶` |
-| **Saltar** | `Espacio`, `↑` o `W` | Botón `SALTAR` |
+| **Moverse / Esquivar (1-2)** | `←` / `→` o `A` / `D` | Botones `◀` / `▶` |
+| **Saltar (1-1, 1-3, 1-4)** | `Espacio`, `↑` o `W` | Botón `SALTAR` |
+| **Actitud Firme / Ventana (1-2)** | `Espacio`/`E` · `W`/`F` | Botones `FIRME` / `VENTANA` |
+| **Agacharse / Maletín (1-4)** | `↓`/`S` · `J`/`Z`/`F`/`K`/`Shift` | Botones `CUBRIR` / `MALETÍN` |
 | **Pausa** | `P` o `Esc` | Botón `❚❚ PAUSA` |
 | **Avanzar diálogos / Skip** | `Espacio` / `Enter` / `S` | Tocar diálogo / `SKIP >>` |
 | **Cambiar Idioma** | `L` | Botones `ES` / `EN` |

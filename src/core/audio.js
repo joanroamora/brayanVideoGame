@@ -120,6 +120,57 @@ export const SFX = (() => {
     busStop() {
       tone(659, 0.14, 'triangle', 0.08, 0);
       tone(523, 0.24, 'triangle', 0.08, 0.16);
+    },
+    whip() {
+      // Sharp 16-bit bullwhip snap: fast upward zip + crisp noise crack!
+      tone(220, 0.06, 'sawtooth', 0.08, 0, 1180);
+      noise(0.11, 0.09);
+      tone(980, 0.05, 'square', 0.06, 0.05, 190);
+    },
+    vault() {
+      // Quick parkour turnstile vault hop
+      tone(310, 0.07, 'square', 0.06, 0, 620);
+      tone(480, 0.06, 'triangle', 0.05, 0.05, 290);
+    },
+    coinGive() {
+      tone(987, 0.05, 'square', 0.06, 0);
+      tone(1318, 0.10, 'square', 0.06, 0.05);
+    },
+    singerGroove() {
+      // Upbeat 16-bit Bogotá urban musical riff when singer heals Brayan!
+      const notes = [392, 493, 587, 784, 659, 784, 987];
+      notes.forEach((f, i) => tone(f, i === notes.length - 1 ? 0.24 : 0.075, 'triangle', 0.08, i * 0.065));
+    },
+    briefcase() {
+      tone(320, 0.07, 'square', 0.08, 0, 140);
+      noise(0.06, 0.05);
+    },
+    chopperFire() {
+      tone(520, 0.06, 'sawtooth', 0.065, 0, 190);
+      tone(460, 0.06, 'square', 0.05, 0.06, 150);
+    },
+    blockBreak() {
+      tone(180, 0.08, 'square', 0.09, 0, 65);
+      noise(0.12, 0.08);
+    },
+    molotovBreak() {
+      tone(840, 0.05, 'triangle', 0.06, 0, 320);
+      noise(0.18, 0.075);
+      tone(140, 0.14, 'sawtooth', 0.07, 0.04, 60);
+    },
+    bossWarning() {
+      [440, 587, 440, 587, 659].forEach((f, i) => tone(f, 0.13, 'sawtooth', 0.085, i * 0.16));
+    },
+    speechWave() {
+      tone(280, 0.16, 'sawtooth', 0.09, 0, 110);
+      tone(420, 0.14, 'square', 0.07, 0.04, 180);
+    },
+    bossHit() {
+      tone(200, 0.09, 'square', 0.10, 0, 480);
+      noise(0.07, 0.07);
+    },
+    bossDefeat() {
+      [523, 392, 659, 523, 784, 659, 1046].forEach((f, i) => tone(f, i === 6 ? 0.45 : 0.11, 'square', 0.09, i * 0.12));
     }
   };
 })();

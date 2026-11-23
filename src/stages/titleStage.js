@@ -15,6 +15,8 @@ function pickStartStage(targetStage) {
   STATE.startStage = targetStage;
   DOM.stagePick1_1.classList.toggle('active', targetStage === 'INTRO_CUTSCENE');
   DOM.stagePick1_2.classList.toggle('active', targetStage === 'WORLD_1_2');
+  DOM.stagePick1_3.classList.toggle('active', targetStage === 'CUTSCENE_1_2_TO_1_3');
+  DOM.stagePick1_4.classList.toggle('active', targetStage === 'WORLD_1_4');
   SFX.blip();
 }
 
@@ -30,6 +32,7 @@ export const titleStage = {
     DOM.title.style.display = 'flex';
     DOM.world1Controls.style.display = 'none';
     DOM.world2Controls.style.display = 'none';
+    DOM.world4Controls.style.display = 'none';
     hideOverlay();
   },
 
@@ -42,6 +45,8 @@ export const titleStage = {
     else if (action === 'SELECT_HEAVY') selectMode('heavy');
     else if (action === 'PICK_STAGE_1_1') pickStartStage('INTRO_CUTSCENE');
     else if (action === 'PICK_STAGE_1_2') pickStartStage('WORLD_1_2');
+    else if (action === 'PICK_STAGE_1_3') pickStartStage('CUTSCENE_1_2_TO_1_3');
+    else if (action === 'PICK_STAGE_1_4') pickStartStage('WORLD_1_4');
     else if (action === 'START_GAME') {
       SFX.start();
       stageManager.goTo(STATE.startStage || 'INTRO_CUTSCENE');
@@ -53,6 +58,8 @@ export const titleStage = {
     if (k === 'arrowright' || k === 'd') selectMode('heavy');
     if (k === '1') pickStartStage('INTRO_CUTSCENE');
     if (k === '2') pickStartStage('WORLD_1_2');
+    if (k === '3') pickStartStage('CUTSCENE_1_2_TO_1_3');
+    if (k === '4') pickStartStage('WORLD_1_4');
     if (k === 'enter' || k === ' ') {
       e.preventDefault();
       this.onAction('START_GAME');

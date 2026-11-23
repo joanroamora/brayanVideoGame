@@ -47,6 +47,8 @@ export function initGlobalInputs() {
   DOM.cardHeavy.addEventListener('click', () => stageManager.handleAction('SELECT_HEAVY'));
   DOM.stagePick1_1.addEventListener('click', () => stageManager.handleAction('PICK_STAGE_1_1'));
   DOM.stagePick1_2.addEventListener('click', () => stageManager.handleAction('PICK_STAGE_1_2'));
+  DOM.stagePick1_3.addEventListener('click', () => stageManager.handleAction('PICK_STAGE_1_3'));
+  DOM.stagePick1_4.addEventListener('click', () => stageManager.handleAction('PICK_STAGE_1_4'));
   DOM.btnPlay.addEventListener('click', () => stageManager.handleAction('START_GAME'));
 
   // Cutscene controls
@@ -56,13 +58,14 @@ export function initGlobalInputs() {
     stageManager.handleAction('SKIP_CUTSCENE');
   });
 
-  // World 1-1 & 1-2 action bar & overlay controls
+  // World 1-1..1-4 action bar & overlay controls
   DOM.btnPause.addEventListener('click', () => stageManager.handleAction('TOGGLE_PAUSE'));
   DOM.btnW2Pause.addEventListener('click', () => stageManager.handleAction('TOGGLE_PAUSE'));
+  DOM.btnW4Pause.addEventListener('click', () => stageManager.handleAction('TOGGLE_PAUSE'));
 
   DOM.btnReplayIntro.addEventListener('click', () => {
     SFX.select();
-    stageManager.goTo('INTRO_CUTSCENE');
+    stageManager.goTo(stageManager.activeName === 'WORLD_1_3' ? 'CUTSCENE_1_2_TO_1_3' : 'INTRO_CUTSCENE');
   });
 
   const goMenu = () => {
@@ -71,10 +74,11 @@ export function initGlobalInputs() {
   };
   DOM.btnBackMenu.addEventListener('click', goMenu);
   DOM.btnW2Menu.addEventListener('click', goMenu);
+  DOM.btnW4Menu.addEventListener('click', goMenu);
   DOM.ovBtnMenu.addEventListener('click', goMenu);
   DOM.ovBtnPrimary.addEventListener('click', () => stageManager.handleAction('OVERLAY_PRIMARY'));
 
-  // Touch / Pointer Controls — World 1-1
+  // Touch / Pointer Controls — World 1-1 & 1-3
   bindTouchHold('btn-left', 'left');
   bindTouchHold('btn-right', 'right');
   bindTouchHold('btn-jump', 'jump');
@@ -84,6 +88,13 @@ export function initGlobalInputs() {
   bindTouchHold('btn-w2-right', 'right');
   bindTouchHold('btn-w2-firm', 'firm');
   bindTouchHold('btn-w2-window', 'window');
+
+  // Touch / Pointer Controls — World 1-4 (Piamonte + Boss Fight)
+  bindTouchHold('btn-w4-left', 'left');
+  bindTouchHold('btn-w4-right', 'right');
+  bindTouchHold('btn-w4-crouch', 'crouch');
+  bindTouchHold('btn-w4-jump', 'jump');
+  bindTouchHold('btn-w4-attack', 'attack');
 
   // Keyboard routing
   window.addEventListener('keydown', (e) => {

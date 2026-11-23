@@ -101,6 +101,8 @@ export const introCutsceneStage = {
     DOM.dialogue.style.display = 'flex';
     DOM.skipBtn.style.display = 'block';
     DOM.world1Controls.style.display = 'none';
+    DOM.world2Controls.style.display = 'none';
+    DOM.world4Controls.style.display = 'none';
     hideOverlay();
 
     CUT.beat = 0;
