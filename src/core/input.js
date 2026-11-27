@@ -52,6 +52,7 @@ export function initGlobalInputs() {
   DOM.stagePick2_1.addEventListener('click', () => stageManager.handleAction('PICK_STAGE_2_1'));
   DOM.stagePick2_2.addEventListener('click', () => stageManager.handleAction('PICK_STAGE_2_2'));
   DOM.stagePick2_3.addEventListener('click', () => stageManager.handleAction('PICK_STAGE_2_3'));
+  if (DOM.stagePick2_4) DOM.stagePick2_4.addEventListener('click', () => stageManager.handleAction('PICK_STAGE_2_4'));
   DOM.btnPlay.addEventListener('click', () => stageManager.handleAction('START_GAME'));
 
   // Interactive Quiz options (Cutscene 2-1 -> 2-2)
@@ -74,7 +75,13 @@ export function initGlobalInputs() {
 
   DOM.btnReplayIntro.addEventListener('click', () => {
     SFX.select();
-    stageManager.goTo(stageManager.activeName === 'WORLD_1_3' ? 'CUTSCENE_1_2_TO_1_3' : 'INTRO_CUTSCENE');
+    const map = {
+      WORLD_1_3: 'CUTSCENE_1_2_TO_1_3',
+      WORLD_2_1: 'CUTSCENE_1_4_TO_2_1',
+      WORLD_2_2: 'CUTSCENE_2_1_TO_2_2',
+      WORLD_2_4: 'CUTSCENE_2_3_TO_2_4'
+    };
+    stageManager.goTo(map[stageManager.activeName] || 'INTRO_CUTSCENE');
   });
 
   const goMenu = () => {

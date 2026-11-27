@@ -17,6 +17,9 @@ import { cutscene2_1To2_2Stage } from './stages/cutscene2_1To2_2Stage.js';
 import { world2_2Stage } from './stages/world2_2/world2_2Stage.js';
 import { cutscene2_2To2_3Stage } from './stages/cutscene2_2To2_3Stage.js';
 import { world2_3Stage } from './stages/world2_3/world2_3Stage.js';
+import { cutscene2_3To2_4Stage } from './stages/cutscene2_3To2_4Stage.js';
+import { world2_4Stage } from './stages/world2_4/world2_4Stage.js';
+import { cutscene2_4To2_5Stage } from './stages/cutscene2_4To2_5Stage.js';
 
 stageManager.register('TITLE', titleStage);
 stageManager.register('INTRO_CUTSCENE', introCutsceneStage);
@@ -31,6 +34,9 @@ stageManager.register('CUTSCENE_2_1_TO_2_2', cutscene2_1To2_2Stage);
 stageManager.register('WORLD_2_2', world2_2Stage);
 stageManager.register('CUTSCENE_2_2_TO_2_3', cutscene2_2To2_3Stage);
 stageManager.register('WORLD_2_3', world2_3Stage);
+stageManager.register('CUTSCENE_2_3_TO_2_4', cutscene2_3To2_4Stage);
+stageManager.register('WORLD_2_4', world2_4Stage);
+stageManager.register('CUTSCENE_2_4_TO_2_5', cutscene2_4To2_5Stage);
 
 initGlobalInputs();
 

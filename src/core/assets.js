@@ -22,6 +22,13 @@ export const ASSET_MANIFEST = {
   bg_septima_ci_4: './assets/backgrounds/world_2_3_septima_4.jpg',
   bg_septima_ci_5: './assets/backgrounds/world_2_3_septima_5.jpg',
   bg_septima_ci_6: './assets/backgrounds/world_2_3_septima_6.jpg',
+  bg_esperanza_1_night: './assets/backgrounds/world_2_4_esperanza_1_night.jpg',
+  bg_esperanza_1: './assets/backgrounds/world_2_4_esperanza_1.jpg',
+  bg_esperanza_2: './assets/backgrounds/world_2_4_esperanza_2.jpg',
+  bg_esperanza_3: './assets/backgrounds/world_2_4_esperanza_3.jpg',
+  bg_esperanza_4: './assets/backgrounds/world_2_4_esperanza_4.jpg',
+  bg_esperanza_5: './assets/backgrounds/world_2_4_esperanza_5.jpg',
+  bg_esperanza_6: './assets/backgrounds/world_2_4_esperanza_6.jpg',
 
   // Player sprites (Brayan)
   brayan_idle: './assets/sprites/player/brayan_idle.png',
@@ -33,6 +40,12 @@ export const ASSET_MANIFEST = {
   brayan_phone: './assets/sprites/player/brayan_phone.png',
   brayan_firm: './assets/sprites/player/brayan_firm.png',
   brayan_briefcase: './assets/sprites/player/brayan_briefcase.png',
+  brayan_pintuco_idle: './assets/sprites/player/brayan_pintuco_idle.png',
+  brayan_pintuco_walk1: './assets/sprites/player/brayan_pintuco_walk1.png',
+  brayan_pintuco_walk2: './assets/sprites/player/brayan_pintuco_walk2.png',
+  brayan_pintuco_bag1: './assets/sprites/player/brayan_pintuco_bag1.png',
+  brayan_pintuco_bag2: './assets/sprites/player/brayan_pintuco_bag2.png',
+  brayan_pintuco_phone: './assets/sprites/player/brayan_pintuco_phone.png',
 
   // Enemy sprites
   nero_walk: './assets/sprites/enemies/nero_walk.png',
@@ -59,6 +72,11 @@ export const ASSET_MANIFEST = {
   nero_runner: './assets/sprites/enemies/nero_runner.png',
   nero_smoker: './assets/sprites/enemies/nero_smoker.png',
   skater_7a: './assets/sprites/enemies/skater_7a.png',
+  perro_barrio: './assets/sprites/enemies/perro_barrio.png',
+  perro_barrio_2: './assets/sprites/enemies/perro_barrio_2.png',
+  bicitaxi_bosa: './assets/sprites/enemies/bicitaxi_bosa.png',
+  vecina_barrio: './assets/sprites/enemies/vecina_barrio.png',
+  balon_barrio: './assets/sprites/enemies/balon_barrio.png',
   act_walk1: './assets/sprites/enemies/act_walk1.png',
   act_walk2: './assets/sprites/enemies/act_walk2.png',
   act_throw: './assets/sprites/enemies/act_throw.png',

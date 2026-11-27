@@ -2,6 +2,7 @@ import { STATE } from '../../core/gameState.js';
 import { t } from '../../config/i18n.js';
 import { SFX } from '../../core/audio.js';
 import { DOM, showOverlay, hideOverlay, renderOverlayContent } from '../../core/ui.js';
+import { stageManager } from '../../core/stageManager.js';
 import { WORLD_2_3_CONFIG, createWorld2_3Schedule } from './levelData.js';
 import { renderWorld2_3 } from './world2_3Renderer.js';
 
@@ -70,7 +71,7 @@ function getOverlayConfig(kind) {
   if (kind === 'GAMEOVER') {
     return { title: L.w23GameOverTitle, sub: L.w23GameOverSub, btnText: L.retryBtn, stats };
   }
-  return { title: L.w23VictoryTitle, sub: L.w23VictorySub, btnText: L.playAgainBtn, stats };
+  return { title: L.w23VictoryTitle, sub: L.w23VictorySub, btnText: L.nextWorld2_4Btn, stats };
 }
 
 function addFloatText(x, y, text, color = '#facc15', life = 1.4) {
@@ -340,6 +341,8 @@ export const world2_3Stage = {
         W23.paused = false;
         hideOverlay();
         this.onLocalize();
+      } else if (kind === 'VICTORY') {
+        stageManager.goTo('CUTSCENE_2_3_TO_2_4', { params: { carryScore: W23.score } });
       } else {
         buildWorld2_3(W23.carryScore);
         this.onLocalize();

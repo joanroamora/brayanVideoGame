@@ -20,6 +20,7 @@ function pickStartStage(targetStage) {
   DOM.stagePick2_1.classList.toggle('active', targetStage === 'CUTSCENE_1_4_TO_2_1');
   DOM.stagePick2_2.classList.toggle('active', targetStage === 'CUTSCENE_2_1_TO_2_2');
   DOM.stagePick2_3.classList.toggle('active', targetStage === 'CUTSCENE_2_2_TO_2_3');
+  if (DOM.stagePick2_4) DOM.stagePick2_4.classList.toggle('active', targetStage === 'CUTSCENE_2_3_TO_2_4');
   SFX.blip();
 }
 
@@ -54,6 +55,7 @@ export const titleStage = {
     else if (action === 'PICK_STAGE_2_1') pickStartStage('CUTSCENE_1_4_TO_2_1');
     else if (action === 'PICK_STAGE_2_2') pickStartStage('CUTSCENE_2_1_TO_2_2');
     else if (action === 'PICK_STAGE_2_3') pickStartStage('CUTSCENE_2_2_TO_2_3');
+    else if (action === 'PICK_STAGE_2_4') pickStartStage('CUTSCENE_2_3_TO_2_4');
     else if (action === 'START_GAME') {
       SFX.start();
       stageManager.goTo(STATE.startStage || 'INTRO_CUTSCENE');
@@ -70,6 +72,7 @@ export const titleStage = {
     if (k === '5') pickStartStage('CUTSCENE_1_4_TO_2_1');
     if (k === '6') pickStartStage('CUTSCENE_2_1_TO_2_2');
     if (k === '7') pickStartStage('CUTSCENE_2_2_TO_2_3');
+    if (k === '8') pickStartStage('CUTSCENE_2_3_TO_2_4');
     if (k === 'enter' || k === ' ') {
       e.preventDefault();
       this.onAction('START_GAME');

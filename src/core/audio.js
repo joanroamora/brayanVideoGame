@@ -247,6 +247,30 @@ export const SFX = (() => {
       // Classic Bogotá moto/Rappi double-honk
       tone(580, 0.07, 'square', 0.06, 0);
       tone(580, 0.09, 'square', 0.06, 0.10);
+    },
+    dogBark() {
+      // Feisty 16-bit stray dog double-bark ("¡GUAU! ¡GUAU!")
+      tone(340, 0.07, 'sawtooth', 0.08, 0, 145);
+      noise(0.05, 0.05);
+      tone(390, 0.08, 'sawtooth', 0.08, 0.10, 160);
+    },
+    biciBell() {
+      // Classic Bosa bicitaxi brass bicycle bell ("¡RING-RING!")
+      tone(1320, 0.07, 'triangle', 0.075, 0);
+      tone(1760, 0.09, 'triangle', 0.075, 0.07);
+    },
+    shopBuy() {
+      // Cheerful cash-register + lunch-bag melody when reaching Tienda La Esperanza!
+      [523, 659, 784, 1046].forEach((f, i) => tone(f, i === 3 ? 0.24 : 0.08, 'square', 0.08, i * 0.08));
+    },
+    phoneMsg() {
+      // Crisp 16-bit WhatsApp / SMS incoming message chime!
+      tone(880, 0.07, 'sine', 0.085, 0);
+      tone(1174, 0.13, 'sine', 0.09, 0.08);
+    },
+    roosterMorning() {
+      // Cheerful Bogotá morning sunrise arpeggio!
+      [392, 493, 587, 784, 987].forEach((f, i) => tone(f, 0.12, 'triangle', 0.075, i * 0.09));
     }
   };
 })();

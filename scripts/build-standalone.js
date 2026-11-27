@@ -47,6 +47,11 @@ const MODULE_ORDER = [
   'src/stages/world2_3/levelData.js',
   'src/stages/world2_3/world2_3Renderer.js',
   'src/stages/world2_3/world2_3Stage.js',
+  'src/stages/cutscene2_3To2_4Stage.js',
+  'src/stages/world2_4/levelData.js',
+  'src/stages/world2_4/world2_4Renderer.js',
+  'src/stages/world2_4/world2_4Stage.js',
+  'src/stages/cutscene2_4To2_5Stage.js',
   'src/main.js'
 ];
 
@@ -80,7 +85,7 @@ for (const rel of MODULE_ORDER) {
   // Isolate stage files that share helper names (addFloatText, spawnParticles, getOverlayConfig, GROUND_Y, etc.)
   const isStageModule = rel.startsWith('src/stages/') && !rel.endsWith('levelData.js') && !rel.endsWith('Renderer.js');
   if (isStageModule) {
-    const stageVarMatch = code.match(/const\s+(titleStage|introCutsceneStage|cutscene1_2To1_3Stage|cutscene1_4To2_1Stage|cutscene2_1To2_2Stage|cutscene2_2To2_3Stage|world1_1Stage|world1_2Stage|world1_3Stage|world1_4Stage|world2_1Stage|world2_2Stage|world2_3Stage)\s*=/);
+    const stageVarMatch = code.match(/const\s+(titleStage|introCutsceneStage|cutscene1_2To1_3Stage|cutscene1_4To2_1Stage|cutscene2_1To2_2Stage|cutscene2_2To2_3Stage|cutscene2_3To2_4Stage|cutscene2_4To2_5Stage|world1_1Stage|world1_2Stage|world1_3Stage|world1_4Stage|world2_1Stage|world2_2Stage|world2_3Stage|world2_4Stage)\s*=/);
     if (stageVarMatch) {
       const stageVar = stageVarMatch[1];
       combinedJs += `\n// === ${rel} ===\nconst ${stageVar} = (() => {\n${code}\nreturn ${stageVar};\n})();\n`;

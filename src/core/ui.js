@@ -31,6 +31,7 @@ export const DOM = {
   stagePick2_1: document.getElementById('stage-pick-2-1'),
   stagePick2_2: document.getElementById('stage-pick-2-2'),
   stagePick2_3: document.getElementById('stage-pick-2-3'),
+  stagePick2_4: document.getElementById('stage-pick-2-4'),
   quizOverlay: document.getElementById('quiz-overlay'),
   quizTitle: document.getElementById('quiz-title'),
   quizQuestion: document.getElementById('quiz-question'),
@@ -105,6 +106,7 @@ export function applySharedLocalization() {
   DOM.stagePick2_1.textContent = L.stage2_1Label;
   DOM.stagePick2_2.textContent = L.stage2_2Label;
   DOM.stagePick2_3.textContent = L.stage2_3Label;
+  if (DOM.stagePick2_4) DOM.stagePick2_4.textContent = L.stage2_4Label;
   DOM.btnPlay.textContent = L.playBtn;
   document.getElementById('t-controls-hint').textContent = STATE.isMobile ? L.hintMobile : L.hintDesktop;
   DOM.skipBtn.textContent = L.skipBtn;
