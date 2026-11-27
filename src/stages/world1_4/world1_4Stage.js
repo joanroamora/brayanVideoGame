@@ -2,6 +2,7 @@ import { STATE } from '../../core/gameState.js';
 import { t } from '../../config/i18n.js';
 import { SFX } from '../../core/audio.js';
 import { DOM, showOverlay, hideOverlay, renderOverlayContent } from '../../core/ui.js';
+import { stageManager } from '../../core/stageManager.js';
 import { WORLD_1_4_CONFIG, createWorld1_4Entities } from './levelData.js';
 import { renderWorld1_4 } from './world1_4Renderer.js';
 
@@ -90,7 +91,7 @@ function getOverlayConfig(kind) {
   if (kind === 'GAMEOVER') {
     return { title: L.w4GameOverTitle, sub: L.w4GameOverSub, btnText: L.retryBtn, stats };
   }
-  return { title: L.w4VictoryTitle, sub: L.w4VictorySub, btnText: L.playAgainBtn, stats };
+  return { title: L.w4VictoryTitle, sub: L.w4VictorySub, btnText: L.nextWorld2_1Btn, stats };
 }
 
 function addFloatText(x, y, text, color = '#facc15') {
@@ -322,10 +323,14 @@ export const world1_4Stage = {
       this.onLocalize();
     } else if (action === 'OVERLAY_PRIMARY') {
       SFX.select();
-      if (DOM.overlay.dataset.kind === 'PAUSE') {
+      const kind = DOM.overlay.dataset.kind;
+      if (kind === 'PAUSE') {
         W4.paused = false;
         hideOverlay();
         this.onLocalize();
+      } else if (kind === 'VICTORY') {
+        SFX.start();
+        stageManager.goTo('CUTSCENE_1_4_TO_2_1', { params: { carryScore: W4.score } });
       } else {
         buildWorld1_4(W4.carryScore);
         this.onLocalize();

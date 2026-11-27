@@ -171,6 +171,82 @@ export const SFX = (() => {
     },
     bossDefeat() {
       [523, 392, 659, 523, 784, 659, 1046].forEach((f, i) => tone(f, i === 6 ? 0.45 : 0.11, 'square', 0.09, i * 0.12));
+    },
+    whisper() {
+      // Tense retro intrigue pulse for office conversation
+      tone(220, 0.18, 'triangle', 0.055, 0, 196);
+      tone(261, 0.22, 'sine', 0.05, 0.12, 233);
+    },
+    cameraFlash() {
+      // Paparazzi shutter click + bright high-pitched flash capacitor whine
+      noise(0.05, 0.075);
+      tone(1420, 0.06, 'square', 0.055, 0.02, 2100);
+      tone(980, 0.09, 'triangle', 0.05, 0.06, 620);
+    },
+    swearBuzz() {
+      // Classic 16-bit TV censor bleep + angry growl for Levy
+      tone(1000, 0.14, 'square', 0.07, 0);
+      tone(185, 0.12, 'sawtooth', 0.075, 0.02, 110);
+    },
+    whaleSpout() {
+      // Comical cartoon whale blowhole geyser + deep foghorn bounce for Wally
+      tone(130, 0.16, 'triangle', 0.08, 0, 260);
+      noise(0.14, 0.055);
+      tone(390, 0.12, 'sine', 0.06, 0.08, 720);
+    },
+    mudSplat() {
+      // Squishy splat when toxic sludge hits floor
+      noise(0.09, 0.065);
+      tone(160, 0.10, 'sawtooth', 0.07, 0, 58);
+    },
+    photocopy() {
+      // Office photocopier green scan bar sweep + crisp chime
+      tone(280, 0.24, 'triangle', 0.06, 0, 620);
+      tone(620, 0.18, 'triangle', 0.05, 0.24, 340);
+      tone(880, 0.10, 'square', 0.07, 0.44);
+      tone(1174, 0.22, 'square', 0.075, 0.54);
+    },
+    stampedeWarn() {
+      // Urgent union-stampede klaxon alert!
+      tone(587, 0.09, 'sawtooth', 0.08, 0, 740);
+      tone(587, 0.09, 'sawtooth', 0.08, 0.13, 740);
+      tone(784, 0.16, 'square', 0.085, 0.26, 987);
+    },
+    paperGrab() {
+      // Crisp rustle + upbeat coin chime for grabbing a bond paper sheet
+      noise(0.04, 0.05);
+      tone(784, 0.06, 'square', 0.065, 0.01);
+      tone(1046, 0.10, 'triangle', 0.07, 0.06);
+    },
+    lizardDash() {
+      // Zippy high-speed lizard bureau-sprint whoosh!
+      tone(340, 0.08, 'triangle', 0.065, 0, 760);
+      noise(0.07, 0.045);
+    },
+    evilDread() {
+      // Ominous low blood-red horror drone + dissonant sting for demonic Majo reveal!
+      tone(92, 0.75, 'sawtooth', 0.08, 0, 62);
+      tone(98, 0.75, 'sawtooth', 0.065, 0.04, 58);
+      tone(138, 0.55, 'triangle', 0.06, 0.16, 110);
+      noise(0.24, 0.04);
+    },
+    chiteBlast() {
+      // Punchy expanding 16-bit shockwave bubble ("¡CHITE!")
+      tone(220, 0.10, 'square', 0.09, 0, 880);
+      tone(440, 0.16, 'triangle', 0.085, 0.04, 1240);
+      noise(0.14, 0.07);
+      tone(160, 0.14, 'sawtooth', 0.075, 0.02, 70);
+    },
+    motoRev() {
+      // Aggressive street motorcycle exhaust rev ("BRAAAP!")
+      tone(110, 0.12, 'sawtooth', 0.075, 0, 235);
+      tone(235, 0.14, 'sawtooth', 0.065, 0.11, 145);
+      noise(0.12, 0.045);
+    },
+    hornBeep() {
+      // Classic Bogotá moto/Rappi double-honk
+      tone(580, 0.07, 'square', 0.06, 0);
+      tone(580, 0.09, 'square', 0.06, 0.10);
     }
   };
 })();

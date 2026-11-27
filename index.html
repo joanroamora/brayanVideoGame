@@ -84,6 +84,9 @@
               <button id="stage-pick-1-2" class="stage-pill" data-stage="WORLD_1_2">1-2 TRANSMILENIO</button>
               <button id="stage-pick-1-3" class="stage-pill" data-stage="WORLD_1_3">1-3 PORTAL SUR</button>
               <button id="stage-pick-1-4" class="stage-pill" data-stage="WORLD_1_4">1-4 PIAMONTE</button>
+              <button id="stage-pick-2-1" class="stage-pill" data-stage="CUTSCENE_1_4_TO_2_1">2-1 BODEGAS</button>
+              <button id="stage-pick-2-2" class="stage-pill" data-stage="CUTSCENE_2_1_TO_2_2">2-2 LAGARTOS</button>
+              <button id="stage-pick-2-3" class="stage-pill" data-stage="CUTSCENE_2_2_TO_2_3">2-3 SÉPTIMA</button>
             </div>
           </div>
           <button id="btn-play" class="btn-play">▶ JUGAR</button>
@@ -97,6 +100,19 @@
       <div class="canvas-frame">
         <canvas id="gameCanvas" width="960" height="540"></canvas>
         <button id="btn-skip" class="btn-skip">SKIP &gt;&gt;</button>
+        <!-- Interactive Ideological Quiz Overlay (Cutscene 2-1 -> 2-2) -->
+        <div id="quiz-overlay">
+          <div class="quiz-box">
+            <div id="quiz-title" class="quiz-title">★ FILTRO DE LA FOTOCOPIADORA ★</div>
+            <p id="quiz-question" class="quiz-question"></p>
+            <div class="quiz-options">
+              <button id="quiz-opt-0" class="quiz-opt-btn"></button>
+              <button id="quiz-opt-1" class="quiz-opt-btn"></button>
+              <button id="quiz-opt-2" class="quiz-opt-btn"></button>
+              <button id="quiz-opt-3" class="quiz-opt-btn"></button>
+            </div>
+          </div>
+        </div>
         <div id="game-overlay">
           <div class="overlay-box">
             <h2 id="ov-title" class="overlay-title">MUNDO 1-1 COMPLETADO</h2>
@@ -160,6 +176,21 @@
         <div class="world1-actions">
           <button id="btn-w4-pause" class="btn-secondary">❚❚ PAUSA</button>
           <button id="btn-w4-menu" class="btn-secondary">⌂ MENÚ</button>
+        </div>
+      </div>
+
+      <!-- World 2-3 Carrera 7a 3-Lane Sidewalk Action Bar (PC + Mobile) -->
+      <div id="world23-controls">
+        <div class="dpad-group">
+          <button id="btn-w23-up" class="touch-btn lane-btn" aria-label="Carril Arriba">▲</button>
+          <button id="btn-w23-down" class="touch-btn lane-btn" aria-label="Carril Abajo">▼</button>
+          <button id="btn-w23-left" class="touch-btn" aria-label="Izquierda">◀</button>
+          <button id="btn-w23-right" class="touch-btn" aria-label="Derecha">▶</button>
+          <button id="btn-w23-chite" class="touch-btn chite-btn" aria-label="Poder Chite">💨 <span id="t-w23-chite">¡CHITE!</span></button>
+        </div>
+        <div class="world1-actions">
+          <button id="btn-w23-pause" class="btn-secondary">❚❚ PAUSA</button>
+          <button id="btn-w23-menu" class="btn-secondary">⌂ MENÚ</button>
         </div>
       </div>
     </section>
